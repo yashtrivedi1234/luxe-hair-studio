@@ -1,7 +1,16 @@
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Scissors, Palette, Sparkles, Crown, Baby, UserCheck } from "lucide-react";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
+import MagneticButton from "@/components/animations/MagneticButton";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const serviceCategories = [
   {
@@ -65,12 +74,48 @@ const additionalServices = [
 ];
 
 const Services = () => {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate service cards on scroll
+      gsap.utils.toArray(".service-card").forEach((card: any, i) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: i % 2 === 0 ? -30 : 30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+            },
+          }
+        );
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
+      <motion.section
+        ref={heroRef}
+        style={{ y: heroY, opacity: heroOpacity }}
+        className="pt-32 pb-16 bg-gradient-hero"
+      >
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto">
+          <AnimatedSection className="text-center max-w-3xl mx-auto">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">
               Our Services
             </span>
@@ -82,53 +127,69 @@ const Services = () => {
               From precision cuts to transformative color, our expert stylists offer a complete
               range of luxury hair services tailored to your unique style.
             </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/book">Book Your Service</Link>
-            </Button>
-          </div>
+            <MagneticButton>
+              <Button variant="hero" size="xl" asChild>
+                <Link to="/book">Book Your Service</Link>
+              </Button>
+            </MagneticButton>
+          </AnimatedSection>
         </div>
-      </section>
+      </motion.section>
 
       {/* Services Categories */}
       {serviceCategories.map((category, categoryIndex) => (
         <section
           key={category.id}
           id={category.id}
-          className={`section-padding ${categoryIndex % 2 === 0 ? "bg-background" : "bg-secondary/30"}`}
+          className={`section-padding ${categoryIndex % 2 === 0 ? "bg-background" : "bg-secondary/30"} overflow-hidden`}
         >
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Category Info */}
-              <div className="lg:sticky lg:top-32 lg:self-start">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <AnimatedSection direction="left" className="lg:sticky lg:top-32 lg:self-start">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6"
+                >
                   <category.icon className="w-8 h-8 text-primary" />
-                </div>
+                </motion.div>
                 <h2 className="font-display text-3xl font-semibold mb-4">{category.title}</h2>
                 <p className="text-muted-foreground leading-relaxed">{category.description}</p>
-              </div>
+              </AnimatedSection>
 
               {/* Services List */}
               <div className="lg:col-span-2">
                 <div className="space-y-4">
                   {category.services.map((service, index) => (
-                    <div
+                    <motion.div
                       key={service.name}
-                      className="flex items-center justify-between p-6 bg-card rounded-xl border border-border/50 card-hover animate-fade-up"
-                      style={{ animationDelay: `${index * 50}ms` }}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      whileHover={{ x: 8, transition: { duration: 0.2 } }}
+                      className="service-card flex items-center justify-between p-6 bg-card rounded-xl border border-border/50"
                     >
                       <div>
                         <h3 className="font-semibold text-lg">{service.name}</h3>
                         <p className="text-muted-foreground text-sm">{service.duration}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-display text-xl font-semibold text-primary">
+                        <motion.p
+                          initial={{ scale: 0.8 }}
+                          whileInView={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                          viewport={{ once: true }}
+                          className="font-display text-xl font-semibold text-primary"
+                        >
                           {service.price}
-                        </p>
+                        </motion.p>
                         <Button variant="ghost" size="sm" asChild className="mt-1">
                           <Link to="/book">Book</Link>
                         </Button>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -138,40 +199,48 @@ const Services = () => {
       ))}
 
       {/* Additional Services */}
-      <section className="section-padding bg-charcoal text-cream">
+      <section className="section-padding bg-charcoal text-cream overflow-hidden">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <AnimatedSection className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-gold text-sm font-medium tracking-widest uppercase">
               Premium Add-Ons
             </span>
             <h2 className="font-display text-4xl font-semibold mt-4">
               Enhance Your Experience
             </h2>
-          </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto" staggerDelay={0.2}>
             {additionalServices.map((service) => (
-              <div
+              <motion.div
                 key={service.title}
-                className="flex items-center gap-6 p-8 rounded-xl bg-cream/5 border border-cream/10"
+                variants={staggerItemVariants}
+                whileHover={{ scale: 1.03, borderColor: "rgba(255,255,255,0.3)" }}
+                className="flex items-center gap-6 p-8 rounded-xl bg-cream/5 border border-cream/10 transition-colors"
               >
-                <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center shrink-0">
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center shrink-0"
+                >
                   <service.icon className="w-7 h-7 text-gold" />
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="font-display text-xl font-semibold">{service.title}</h3>
                   <p className="text-cream/70">{service.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </StaggerContainer>
 
-          <div className="text-center mt-12">
+          <AnimatedSection className="text-center mt-12" delay={0.4}>
             <p className="text-cream/60 mb-4">Not sure which service is right for you?</p>
-            <Button variant="heroOutline" size="lg" asChild className="border-gold text-gold hover:bg-gold hover:text-charcoal">
-              <Link to="/book">Book a Free Consultation</Link>
-            </Button>
-          </div>
+            <MagneticButton>
+              <Button variant="heroOutline" size="lg" asChild className="border-gold text-gold hover:bg-gold hover:text-charcoal">
+                <Link to="/book">Book a Free Consultation</Link>
+              </Button>
+            </MagneticButton>
+          </AnimatedSection>
         </div>
       </section>
     </Layout>

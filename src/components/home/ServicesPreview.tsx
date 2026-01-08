@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Scissors, Palette, Sparkles, Crown, ArrowRight } from "lucide-react";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const services = [
   {
@@ -34,7 +38,7 @@ const ServicesPreview = () => {
     <section className="section-padding bg-background">
       <div className="container-custom">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary text-sm font-medium tracking-widest uppercase">
             Our Services
           </span>
@@ -46,19 +50,27 @@ const ServicesPreview = () => {
             From classic cuts to bold transformations, our expert stylists deliver
             personalized services that exceed expectations.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <div
+        <StaggerContainer
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          staggerDelay={0.15}
+        >
+          {services.map((service) => (
+            <motion.div
               key={service.title}
-              className="group bg-card rounded-xl p-8 card-hover border border-border/50 animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              variants={staggerItemVariants}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group bg-card rounded-xl p-8 border border-border/50 cursor-pointer"
             >
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300"
+              >
                 <service.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
-              </div>
+              </motion.div>
               <h3 className="font-display text-xl font-semibold mb-3">
                 {service.title}
               </h3>
@@ -66,19 +78,21 @@ const ServicesPreview = () => {
                 {service.description}
               </p>
               <p className="text-primary font-semibold">{service.price}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* CTA */}
-        <div className="text-center mt-12">
-          <Button variant="default" size="lg" asChild>
-            <Link to="/services" className="gap-2">
-              View All Services
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
+        <AnimatedSection className="text-center mt-12" delay={0.4}>
+          <MagneticButton>
+            <Button variant="default" size="lg" asChild>
+              <Link to="/services" className="gap-2">
+                View All Services
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </MagneticButton>
+        </AnimatedSection>
       </div>
     </section>
   );

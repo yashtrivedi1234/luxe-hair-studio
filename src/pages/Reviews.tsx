@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const reviews = [
   {
@@ -68,7 +72,7 @@ const Reviews = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto">
+          <AnimatedSection className="text-center max-w-3xl mx-auto">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">
               Client Reviews
             </span>
@@ -78,12 +82,24 @@ const Reviews = () => {
             </h1>
             
             {/* Rating Summary */}
-            <div className="inline-flex items-center gap-4 bg-card rounded-2xl p-6 shadow-soft mt-4">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, type: "spring" }}
+              className="inline-flex items-center gap-4 bg-card rounded-2xl p-6 shadow-soft mt-4"
+            >
               <div className="text-center pr-4 border-r border-border">
                 <p className="font-display text-5xl font-bold text-primary">{averageRating}</p>
                 <div className="flex gap-1 justify-center mt-2">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.4 + i * 0.1 }}
+                    >
+                      <Star className="w-4 h-4 fill-gold text-gold" />
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -91,20 +107,21 @@ const Reviews = () => {
                 <p className="font-semibold">Exceptional</p>
                 <p className="text-sm text-muted-foreground">Based on 500+ reviews</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Reviews Grid */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {reviews.map((review, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 shadow-soft border border-border/50 card-hover animate-fade-up"
-                style={{ animationDelay: `${index * 100}ms` }}
+                variants={staggerItemVariants}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="bg-card rounded-xl p-8 shadow-soft border border-border/50"
               >
                 <Quote className="w-8 h-8 text-primary/20 mb-4" />
                 
@@ -125,7 +142,8 @@ const Reviews = () => {
                 </p>
                 
                 <div className="flex items-center gap-4 pt-4 border-t border-border">
-                  <img
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
                     src={review.image}
                     alt={review.name}
                     className="w-12 h-12 rounded-full object-cover"
@@ -136,13 +154,16 @@ const Reviews = () => {
                   </div>
                   <span className="text-xs text-muted-foreground">{review.date}</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </StaggerContainer>
 
           {/* Google Reviews Link */}
-          <div className="text-center mt-16">
-            <div className="inline-flex items-center gap-3 bg-secondary rounded-xl p-6">
+          <AnimatedSection delay={0.2} className="text-center mt-16">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="inline-flex items-center gap-3 bg-secondary rounded-xl p-6"
+            >
               <div className="w-12 h-12 bg-card rounded-lg flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-7 h-7">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -155,31 +176,36 @@ const Reviews = () => {
                 <p className="font-semibold">See all our reviews on Google</p>
                 <p className="text-sm text-muted-foreground">4.9 stars from 500+ reviews</p>
               </div>
-              <a
+              <motion.a
+                whileHover={{ scale: 1.1, rotate: 15 }}
                 href="https://google.com/maps"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-4 p-2 hover:bg-muted rounded-lg transition-colors"
               >
                 <ExternalLink className="w-5 h-5 text-muted-foreground" />
-              </a>
-            </div>
-          </div>
+              </motion.a>
+            </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="section-padding bg-charcoal text-cream">
         <div className="container-custom text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
-            Ready to Experience LuxeSalon?
-          </h2>
-          <p className="text-cream/70 mb-8 max-w-xl mx-auto">
-            Join our community of satisfied clients and discover why we're Beverly Hills' most loved salon.
-          </p>
-          <Button variant="hero" size="xl" asChild>
-            <Link to="/book">Book Your Appointment</Link>
-          </Button>
+          <AnimatedSection>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
+              Ready to Experience LuxeSalon?
+            </h2>
+            <p className="text-cream/70 mb-8 max-w-xl mx-auto">
+              Join our community of satisfied clients and discover why we're Beverly Hills' most loved salon.
+            </p>
+            <MagneticButton>
+              <Button variant="hero" size="xl" asChild>
+                <Link to="/book">Book Your Appointment</Link>
+              </Button>
+            </MagneticButton>
+          </AnimatedSection>
         </div>
       </section>
     </Layout>

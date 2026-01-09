@@ -11,6 +11,10 @@ import { format } from "date-fns";
 import { CalendarIcon, Check, Clock, User, Scissors } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const services = [
   { value: "haircut-women", label: "Women's Haircut & Style", duration: "60 min", price: "$95" },
@@ -76,17 +80,37 @@ const Book = () => {
         <section className="pt-32 pb-16 min-h-screen bg-gradient-hero">
           <div className="container-custom">
             <div className="max-w-2xl mx-auto text-center">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8 animate-scale-in">
+              <motion.div 
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", duration: 0.8 }}
+                className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8"
+              >
                 <Check className="w-10 h-10 text-primary" />
-              </div>
-              <h1 className="font-display text-4xl md:text-5xl font-semibold mb-4 animate-fade-up">
+              </motion.div>
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="font-display text-4xl md:text-5xl font-semibold mb-4"
+              >
                 Booking Confirmed!
-              </h1>
-              <p className="text-muted-foreground text-lg mb-8 animate-fade-up delay-100">
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-muted-foreground text-lg mb-8"
+              >
                 Thank you for choosing LuxeSalon. We've sent a confirmation email to {formData.email}.
-              </p>
+              </motion.p>
               
-              <div className="bg-card rounded-xl p-8 shadow-soft border border-border mb-8 text-left animate-fade-up delay-200">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-card rounded-xl p-8 shadow-soft border border-border mb-8 text-left"
+              >
                 <h3 className="font-display text-xl font-semibold mb-6">Appointment Details</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between py-3 border-b border-border">
@@ -108,11 +132,13 @@ const Book = () => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/">Return to Home</Link>
-              </Button>
+              <MagneticButton>
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/">Return to Home</Link>
+                </Button>
+              </MagneticButton>
             </div>
           </div>
         </section>
@@ -125,7 +151,7 @@ const Book = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <AnimatedSection className="text-center max-w-3xl mx-auto mb-12">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">
               Book Online
             </span>
@@ -136,10 +162,10 @@ const Book = () => {
             <p className="text-muted-foreground text-lg">
               Choose your service, stylist, and preferred time. We'll take care of the rest.
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Progress Steps */}
-          <div className="flex justify-center mb-12">
+          <AnimatedSection delay={0.2} className="flex justify-center mb-12">
             <div className="flex items-center gap-4">
               {[
                 { num: 1, label: "Service", icon: Scissors },
@@ -147,7 +173,9 @@ const Book = () => {
                 { num: 3, label: "Your Details", icon: User },
               ].map((s, i) => (
                 <div key={s.num} className="flex items-center">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setStep(s.num)}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
@@ -159,12 +187,12 @@ const Book = () => {
                     <s.icon className="w-4 h-4" />
                     <span className="hidden sm:inline">{s.label}</span>
                     <span className="sm:hidden">{s.num}</span>
-                  </button>
+                  </motion.button>
                   {i < 2 && <div className="w-8 h-0.5 bg-muted mx-2" />}
                 </div>
               ))}
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -174,13 +202,21 @@ const Book = () => {
           <div className="max-w-3xl mx-auto">
             {/* Step 1: Service Selection */}
             {step === 1 && (
-              <div className="space-y-8 animate-fade-up">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="space-y-8"
+              >
                 <div>
                   <Label className="text-lg font-semibold mb-4 block">Select a Service</Label>
-                  <div className="grid gap-3">
+                  <StaggerContainer className="grid gap-3">
                     {services.map((service) => (
-                      <button
+                      <motion.button
                         key={service.value}
+                        variants={staggerItemVariants}
+                        whileHover={{ scale: 1.01, x: 4 }}
+                        whileTap={{ scale: 0.99 }}
                         onClick={() => setSelectedService(service.value)}
                         className={cn(
                           "flex items-center justify-between p-5 rounded-xl border transition-all text-left",
@@ -196,12 +232,12 @@ const Book = () => {
                         <p className="font-display text-lg font-semibold text-primary">
                           {service.price}
                         </p>
-                      </button>
+                      </motion.button>
                     ))}
-                  </div>
+                  </StaggerContainer>
                 </div>
 
-                <div>
+                <AnimatedSection delay={0.3}>
                   <Label className="text-lg font-semibold mb-4 block">Preferred Stylist</Label>
                   <Select value={selectedStylist} onValueChange={setSelectedStylist}>
                     <SelectTrigger className="h-12">
@@ -215,24 +251,31 @@ const Book = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
+                </AnimatedSection>
 
-                <Button
-                  variant="hero"
-                  size="xl"
-                  className="w-full"
-                  onClick={() => setStep(2)}
-                  disabled={!selectedService}
-                >
-                  Continue to Date & Time
-                </Button>
-              </div>
+                <MagneticButton>
+                  <Button
+                    variant="hero"
+                    size="xl"
+                    className="w-full"
+                    onClick={() => setStep(2)}
+                    disabled={!selectedService}
+                  >
+                    Continue to Date & Time
+                  </Button>
+                </MagneticButton>
+              </motion.div>
             )}
 
             {/* Step 2: Date & Time */}
             {step === 2 && (
-              <div className="space-y-8 animate-fade-up">
-                <div>
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="space-y-8"
+              >
+                <AnimatedSection>
                   <Label className="text-lg font-semibold mb-4 block">Select Date</Label>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -257,14 +300,19 @@ const Book = () => {
                       />
                     </PopoverContent>
                   </Popover>
-                </div>
+                </AnimatedSection>
 
-                <div>
+                <AnimatedSection delay={0.1}>
                   <Label className="text-lg font-semibold mb-4 block">Select Time</Label>
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-                    {timeSlots.map((time) => (
-                      <button
+                    {timeSlots.map((time, index) => (
+                      <motion.button
                         key={time}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.02 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedTime(time)}
                         className={cn(
                           "p-3 rounded-lg border text-sm font-medium transition-all",
@@ -274,32 +322,39 @@ const Book = () => {
                         )}
                       >
                         {time}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
-                </div>
+                </AnimatedSection>
 
                 <div className="flex gap-4">
                   <Button variant="outline" size="lg" onClick={() => setStep(1)} className="flex-1">
                     Back
                   </Button>
-                  <Button
-                    variant="hero"
-                    size="lg"
-                    onClick={() => setStep(3)}
-                    disabled={!date || !selectedTime}
-                    className="flex-1"
-                  >
-                    Continue
-                  </Button>
+                  <MagneticButton className="flex-1">
+                    <Button
+                      variant="hero"
+                      size="lg"
+                      onClick={() => setStep(3)}
+                      disabled={!date || !selectedTime}
+                      className="w-full"
+                    >
+                      Continue
+                    </Button>
+                  </MagneticButton>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* Step 3: Personal Details */}
             {step === 3 && (
-              <div className="space-y-8 animate-fade-up">
-                <div className="bg-card rounded-xl p-6 border border-border mb-8">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="space-y-8"
+              >
+                <AnimatedSection className="bg-card rounded-xl p-6 border border-border mb-8">
                   <h3 className="font-semibold mb-4">Booking Summary</h3>
                   <div className="space-y-2 text-sm">
                     <p><span className="text-muted-foreground">Service:</span> {selectedServiceData?.label}</p>
@@ -307,9 +362,9 @@ const Book = () => {
                     <p><span className="text-muted-foreground">Time:</span> {selectedTime}</p>
                     <p><span className="text-muted-foreground">Price:</span> {selectedServiceData?.price}</p>
                   </div>
-                </div>
+                </AnimatedSection>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <AnimatedSection delay={0.1} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
                     <Input
@@ -328,9 +383,9 @@ const Book = () => {
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     />
                   </div>
-                </div>
+                </AnimatedSection>
 
-                <div>
+                <AnimatedSection delay={0.15}>
                   <Label htmlFor="email">Email Address *</Label>
                   <Input
                     id="email"
@@ -339,9 +394,9 @@ const Book = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
-                </div>
+                </AnimatedSection>
 
-                <div>
+                <AnimatedSection delay={0.2}>
                   <Label htmlFor="phone">Phone Number *</Label>
                   <Input
                     id="phone"
@@ -350,9 +405,9 @@ const Book = () => {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
-                </div>
+                </AnimatedSection>
 
-                <div>
+                <AnimatedSection delay={0.25}>
                   <Label htmlFor="notes">Special Requests (Optional)</Label>
                   <Input
                     id="notes"
@@ -361,17 +416,19 @@ const Book = () => {
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   />
-                </div>
+                </AnimatedSection>
 
                 <div className="flex gap-4">
                   <Button variant="outline" size="lg" onClick={() => setStep(2)} className="flex-1">
                     Back
                   </Button>
-                  <Button variant="hero" size="lg" onClick={handleSubmit} className="flex-1">
-                    Confirm Booking
-                  </Button>
+                  <MagneticButton className="flex-1">
+                    <Button variant="hero" size="lg" onClick={handleSubmit} className="w-full">
+                      Confirm Booking
+                    </Button>
+                  </MagneticButton>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Gift, Crown, Sparkles, Clock, Tag, Star, Check } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const offers = [
   {
@@ -85,7 +89,7 @@ const Offers = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto">
+          <AnimatedSection className="text-center max-w-3xl mx-auto">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">
               Special Offers
             </span>
@@ -96,43 +100,51 @@ const Offers = () => {
             <p className="text-muted-foreground text-lg leading-relaxed">
               Enjoy special savings and VIP perks with our seasonal offers and membership programs.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Current Offers */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <AnimatedSection className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
               Current Promotions
             </h2>
             <p className="text-muted-foreground">
               Take advantage of these limited-time offers
             </p>
-          </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {offers.map((offer, index) => (
-              <div
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {offers.map((offer) => (
+              <motion.div
                 key={offer.title}
-                className={`relative rounded-xl p-8 border animate-fade-up ${
+                variants={staggerItemVariants}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className={`relative rounded-xl p-8 border ${
                   offer.highlight
                     ? "bg-gradient-gold text-charcoal border-primary shadow-gold"
                     : "bg-card border-border shadow-soft"
                 }`}
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {offer.highlight && (
-                  <div className="absolute -top-3 left-6 bg-charcoal text-cream text-xs font-medium px-3 py-1 rounded-full">
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute -top-3 left-6 bg-charcoal text-cream text-xs font-medium px-3 py-1 rounded-full"
+                  >
                     Most Popular
-                  </div>
+                  </motion.div>
                 )}
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
-                  offer.highlight ? "bg-charcoal/20" : "bg-primary/10"
-                }`}>
+                <motion.div 
+                  whileHover={{ rotate: 15, scale: 1.1 }}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
+                    offer.highlight ? "bg-charcoal/20" : "bg-primary/10"
+                  }`}
+                >
                   <offer.icon className={`w-6 h-6 ${offer.highlight ? "text-charcoal" : "text-primary"}`} />
-                </div>
+                </motion.div>
                 <h3 className="font-display text-xl font-semibold mb-2">{offer.title}</h3>
                 <p className={`mb-4 ${offer.highlight ? "text-charcoal/80" : "text-muted-foreground"}`}>
                   {offer.description}
@@ -141,50 +153,65 @@ const Offers = () => {
                   <div className={`text-sm ${offer.highlight ? "text-charcoal/60" : "text-muted-foreground"}`}>
                     Valid: {offer.validUntil}
                   </div>
-                  <code className={`text-sm font-mono px-3 py-1 rounded ${
-                    offer.highlight ? "bg-charcoal/20" : "bg-muted"
-                  }`}>
+                  <motion.code 
+                    whileHover={{ scale: 1.05 }}
+                    className={`text-sm font-mono px-3 py-1 rounded cursor-pointer ${
+                      offer.highlight ? "bg-charcoal/20" : "bg-muted"
+                    }`}
+                  >
                     {offer.code}
-                  </code>
+                  </motion.code>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Membership Section */}
       <section className="section-padding bg-secondary/30">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-4">
+          <AnimatedSection className="text-center max-w-2xl mx-auto mb-12">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-4"
+            >
               <Crown className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">VIP Membership</span>
-            </div>
+            </motion.div>
             <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
               Join the LuxeSalon Family
             </h2>
             <p className="text-muted-foreground">
               Unlock exclusive benefits and savings with our membership programs
             </p>
-          </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {membershipTiers.map((tier, index) => (
-              <div
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {membershipTiers.map((tier) => (
+              <motion.div
                 key={tier.name}
-                className={`relative rounded-2xl p-8 animate-fade-up ${
+                variants={staggerItemVariants}
+                whileHover={{ 
+                  y: -10,
+                  transition: { duration: 0.3 }
+                }}
+                className={`relative rounded-2xl p-8 ${
                   tier.popular
                     ? "bg-charcoal text-cream border-2 border-gold scale-105 shadow-gold"
                     : "bg-card border border-border shadow-soft"
                 }`}
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-gold text-charcoal text-xs font-semibold px-4 py-1.5 rounded-full">
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring" }}
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-gold text-charcoal text-xs font-semibold px-4 py-1.5 rounded-full"
+                  >
                     <Star className="w-3 h-3 fill-current" />
                     Most Popular
-                  </div>
+                  </motion.div>
                 )}
 
                 <h3 className={`font-display text-2xl font-semibold mb-2 ${
@@ -201,8 +228,15 @@ const Offers = () => {
                 </div>
 
                 <ul className="space-y-3 mb-8">
-                  {tier.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-start gap-3">
+                  {tier.benefits.map((benefit, i) => (
+                    <motion.li 
+                      key={benefit} 
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-3"
+                    >
                       <Check className={`w-5 h-5 shrink-0 mt-0.5 ${
                         tier.popular ? "text-gold" : "text-primary"
                       }`} />
@@ -211,21 +245,23 @@ const Offers = () => {
                       }`}>
                         {benefit}
                       </span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
 
-                <Button
-                  variant={tier.popular ? "hero" : "outline"}
-                  className="w-full"
-                  size="lg"
-                  asChild
-                >
-                  <Link to="/contact">Get Started</Link>
-                </Button>
-              </div>
+                <MagneticButton>
+                  <Button
+                    variant={tier.popular ? "hero" : "outline"}
+                    className="w-full"
+                    size="lg"
+                    asChild
+                  >
+                    <Link to="/contact">Get Started</Link>
+                  </Button>
+                </MagneticButton>
+              </motion.div>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -233,7 +269,7 @@ const Offers = () => {
       <section className="section-padding bg-charcoal text-cream">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <AnimatedSection direction="left">
               <span className="text-gold text-sm font-medium tracking-widest uppercase">
                 Gift Cards
               </span>
@@ -250,25 +286,46 @@ const Offers = () => {
                   "Never expires",
                   "Valid for all services and products",
                   "Beautifully designed physical cards available",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
+                ].map((item, i) => (
+                  <motion.li 
+                    key={item} 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-3"
+                  >
                     <Check className="w-5 h-5 text-gold" />
                     <span className="text-cream/80">{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-              <Button variant="hero" size="xl" asChild>
-                <Link to="/contact">Purchase Gift Card</Link>
-              </Button>
-            </div>
+              <MagneticButton>
+                <Button variant="hero" size="xl" asChild>
+                  <Link to="/contact">Purchase Gift Card</Link>
+                </Button>
+              </MagneticButton>
+            </AnimatedSection>
 
-            <div className="relative">
-              <div className="bg-gradient-gold rounded-2xl p-1 rotate-3 shadow-gold">
-                <div className="bg-charcoal rounded-xl p-8 -rotate-3">
+            <AnimatedSection direction="right" className="relative">
+              <motion.div 
+                whileHover={{ rotate: 6 }}
+                transition={{ type: "spring" }}
+                className="bg-gradient-gold rounded-2xl p-1 rotate-3 shadow-gold"
+              >
+                <motion.div 
+                  whileHover={{ rotate: -6 }}
+                  transition={{ type: "spring" }}
+                  className="bg-charcoal rounded-xl p-8 -rotate-3"
+                >
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center">
+                    <motion.div 
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className="w-10 h-10 rounded-full bg-gold flex items-center justify-center"
+                    >
                       <Gift className="w-5 h-5 text-charcoal" />
-                    </div>
+                    </motion.div>
                     <span className="font-display text-xl text-gold">LuxeSalon</span>
                   </div>
                   <p className="font-display text-4xl font-semibold text-cream mb-2">$250</p>
@@ -277,9 +334,9 @@ const Offers = () => {
                     <p className="text-xs text-cream/40">Gift Card Number</p>
                     <p className="font-mono text-cream/60">LUXE-XXXX-XXXX-XXXX</p>
                   </div>
-                </div>
-              </div>
-            </div>
+                </motion.div>
+              </motion.div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

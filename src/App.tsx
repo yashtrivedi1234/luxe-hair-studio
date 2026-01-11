@@ -9,6 +9,7 @@ import CustomCursor from "@/components/animations/CustomCursor";
 import PageTransition from "@/components/animations/PageTransition";
 import LoadingScreen from "@/components/animations/LoadingScreen";
 import ScrollProgress from "@/components/animations/ScrollProgress";
+import BackToTop from "@/components/animations/BackToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -53,6 +54,7 @@ const App = () => (
     <TooltipProvider>
       <LoadingScreen />
       <ScrollProgress />
+      <BackToTop />
       <CustomCursor />
       <Toaster />
       <Sonner />

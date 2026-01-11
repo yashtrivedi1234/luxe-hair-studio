@@ -10,6 +10,7 @@ import PageTransition from "@/components/animations/PageTransition";
 import LoadingScreen from "@/components/animations/LoadingScreen";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import BackToTop from "@/components/animations/BackToTop";
+import SectionIndicator from "@/components/animations/SectionIndicator";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -55,6 +56,7 @@ const App = () => (
       <LoadingScreen />
       <ScrollProgress />
       <BackToTop />
+      <SectionIndicator />
       <CustomCursor />
       <Toaster />
       <Sonner />

@@ -20,6 +20,9 @@ const CTASection = () => {
   return (
     <section
       ref={sectionRef}
+      id="cta"
+      data-section="cta"
+      data-section-label="Book Now"
       className="section-padding bg-gradient-dark text-cream overflow-hidden relative"
     >
       {/* Decorative Elements with Parallax */}

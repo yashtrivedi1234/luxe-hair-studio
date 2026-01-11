@@ -8,6 +8,7 @@ import useSmoothScroll from "@/hooks/use-smooth-scroll";
 import CustomCursor from "@/components/animations/CustomCursor";
 import PageTransition from "@/components/animations/PageTransition";
 import LoadingScreen from "@/components/animations/LoadingScreen";
+import ScrollProgress from "@/components/animations/ScrollProgress";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -51,6 +52,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LoadingScreen />
+      <ScrollProgress />
       <CustomCursor />
       <Toaster />
       <Sonner />

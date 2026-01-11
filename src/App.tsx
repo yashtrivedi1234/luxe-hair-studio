@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import useSmoothScroll from "@/hooks/use-smooth-scroll";
 import CustomCursor from "@/components/animations/CustomCursor";
 import PageTransition from "@/components/animations/PageTransition";
+import LoadingScreen from "@/components/animations/LoadingScreen";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -49,6 +50,7 @@ const AppContent = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <LoadingScreen />
       <CustomCursor />
       <Toaster />
       <Sonner />

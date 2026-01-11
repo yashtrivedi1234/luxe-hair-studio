@@ -32,7 +32,7 @@ const testimonials = [
 
 const TestimonialsPreview = () => {
   return (
-    <section className="section-padding bg-secondary/30 overflow-hidden">
+    <section id="testimonials" data-section="testimonials" data-section-label="Testimonials" className="section-padding bg-secondary/30 overflow-hidden">
       <div className="container-custom">
         {/* Header */}
         <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">

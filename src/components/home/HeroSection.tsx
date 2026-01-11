@@ -55,7 +55,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={sectionRef} id="hero" data-section="hero" data-section-label="Hero" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }}>
         <img

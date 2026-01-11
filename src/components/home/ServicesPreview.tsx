@@ -35,7 +35,7 @@ const services = [
 
 const ServicesPreview = () => {
   return (
-    <section className="section-padding bg-background">
+    <section id="services" data-section="services" data-section-label="Services" className="section-padding bg-background">
       <div className="container-custom">
         {/* Header */}
         <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">

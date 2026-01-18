@@ -10,7 +10,7 @@ import MagneticButton from "@/components/animations/MagneticButton";
 const reviews = [
   {
     name: "Sarah Mitchell",
-    date: "2 weeks ago",
+    date: "3 weeks ago",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
     rating: 5,
     title: "Absolutely Amazing Experience!",

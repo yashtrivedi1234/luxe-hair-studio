@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Scissors, Palette, Sparkles, Crown, ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/animations/AnimatedSection";
@@ -34,9 +35,34 @@ const services = [
 ];
 
 const ServicesPreview = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const decorativeRotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
+  const decorativeScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+
   return (
-    <section id="services" data-section="services" data-section-label="Services" className="section-padding bg-background">
-      <div className="container-custom">
+    <section 
+      ref={sectionRef}
+      id="services" 
+      data-section="services" 
+      data-section-label="Services" 
+      className="section-padding bg-background relative overflow-hidden"
+    >
+      {/* Parallax Decorative Elements */}
+      <motion.div
+        style={{ y: backgroundY, rotate: decorativeRotate, scale: decorativeScale }}
+        className="absolute -top-20 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"
+      />
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]), scale: decorativeScale }}
+        className="absolute -bottom-20 -left-20 w-96 h-96 bg-gold/5 rounded-full blur-3xl"
+      />
+      <div className="container-custom relative z-10">
         {/* Header */}
         <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary text-sm font-medium tracking-widest uppercase">

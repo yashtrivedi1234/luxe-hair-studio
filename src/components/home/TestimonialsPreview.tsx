@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/animations/AnimatedSection";
@@ -31,9 +32,42 @@ const testimonials = [
 ];
 
 const TestimonialsPreview = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const quoteY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const decorativeOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.8, 0.3]);
+
   return (
-    <section id="testimonials" data-section="testimonials" data-section-label="Testimonials" className="section-padding bg-secondary/30 overflow-hidden">
-      <div className="container-custom">
+    <section 
+      ref={sectionRef}
+      id="testimonials" 
+      data-section="testimonials" 
+      data-section-label="Testimonials" 
+      className="section-padding bg-secondary/30 overflow-hidden relative"
+    >
+      {/* Parallax Background Pattern */}
+      <motion.div
+        style={{ y: backgroundY, opacity: decorativeOpacity }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <div className="absolute top-10 left-10 w-32 h-32 border border-primary/10 rounded-full" />
+        <div className="absolute top-1/4 right-20 w-48 h-48 border border-gold/10 rounded-full" />
+        <div className="absolute bottom-20 left-1/3 w-24 h-24 border border-primary/10 rounded-full" />
+      </motion.div>
+      
+      {/* Floating Quote Decoration */}
+      <motion.div
+        style={{ y: quoteY }}
+        className="absolute top-20 right-10 text-primary/5 hidden lg:block"
+      >
+        <Quote className="w-40 h-40" />
+      </motion.div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary text-sm font-medium tracking-widest uppercase">

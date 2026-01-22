@@ -137,7 +137,7 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <MagneticButton>
-              <Button variant="hero" size="xl" asChild data-cursor-text="Book">
+              <Button variant="hero" size="xl" asChild>
                 <Link to="/book" className="gap-2">
                   Book Appointment
                   <ArrowRight className="w-5 h-5" />
@@ -149,7 +149,7 @@ const HeroSection = () => {
                 variant="heroOutline"
                 size="xl"
                 asChild
-                data-cursor-text="Explore"
+                
                 className="border-cream/30 text-cream hover:bg-cream hover:text-charcoal"
               >
                 <Link to="/services">View Services</Link>

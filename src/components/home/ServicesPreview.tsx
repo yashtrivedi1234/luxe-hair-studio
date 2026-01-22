@@ -85,7 +85,7 @@ const ServicesPreview = () => {
         {/* CTA */}
         <AnimatedSection className="text-center mt-12" delay={0.4}>
           <MagneticButton>
-            <Button variant="default" size="lg" asChild data-cursor-text="Explore">
+            <Button variant="default" size="lg" asChild>
               <Link to="/services" className="gap-2">
                 View All Services
                 <ArrowRight className="w-4 h-4" />

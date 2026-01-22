@@ -76,7 +76,7 @@ const Navbar = () => {
               <Phone className="w-4 h-4" />
               (123) 456-7890
             </a>
-            <Button variant="hero" size="lg" asChild>
+            <Button variant="hero" size="lg" asChild data-cursor-text="Book">
               <Link to="/book">Book Now</Link>
             </Button>
           </div>

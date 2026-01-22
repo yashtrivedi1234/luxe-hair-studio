@@ -113,7 +113,7 @@ const TestimonialsPreview = () => {
         {/* CTA */}
         <AnimatedSection className="text-center mt-12" delay={0.5}>
           <MagneticButton>
-            <Button variant="default" size="lg" asChild>
+            <Button variant="default" size="lg" asChild data-cursor-text="Reviews">
               <Link to="/reviews" className="gap-2">
                 Read More Reviews
                 <ArrowRight className="w-4 h-4" />

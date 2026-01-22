@@ -60,7 +60,7 @@ const CTASection = () => {
                 perfect look. New clients receive 20% off their first visit.
               </p>
               <MagneticButton>
-                <Button variant="hero" size="xl" asChild>
+                <Button variant="hero" size="xl" asChild data-cursor-text="Book">
                   <Link to="/book">Book Appointment</Link>
                 </Button>
               </MagneticButton>
@@ -118,6 +118,7 @@ const CTASection = () => {
                   variant="heroOutline"
                   size="lg"
                   asChild
+                  data-cursor-text="Offers"
                   className="border-gold text-gold hover:bg-gold hover:text-charcoal"
                 >
                   <Link to="/offers">View All Offers</Link>

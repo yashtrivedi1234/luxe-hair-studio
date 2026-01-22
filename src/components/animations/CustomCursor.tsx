@@ -4,7 +4,6 @@ import { motion, useSpring, useMotionValue } from "framer-motion";
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
-  const [cursorText, setCursorText] = useState("");
   const [isHidden, setIsHidden] = useState(false);
 
   const cursorX = useMotionValue(-100);
@@ -29,16 +28,11 @@ const CustomCursor = () => {
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const interactive = target.closest('a, button, [data-cursor="pointer"], input, textarea, select, [role="button"]');
-      const cursorTextEl = target.closest('[data-cursor-text]');
       
       if (interactive) {
         setIsHovering(true);
-        if (cursorTextEl) {
-          setCursorText(cursorTextEl.getAttribute('data-cursor-text') || '');
-        }
       } else {
         setIsHovering(false);
-        setCursorText("");
       }
     };
 
@@ -92,16 +86,6 @@ const CustomCursor = () => {
               scale: isHovering ? 0.5 : 1,
             }}
           />
-          {cursorText && (
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute whitespace-nowrap text-[10px] font-medium text-white uppercase tracking-wider"
-            >
-              {cursorText}
-            </motion.span>
-          )}
         </motion.div>
       </motion.div>
 

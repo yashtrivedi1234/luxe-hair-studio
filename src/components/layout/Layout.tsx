@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 
@@ -26,7 +25,6 @@ const Layout = ({ children, showBreadcrumbs = true }: LayoutProps) => {
         {children}
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

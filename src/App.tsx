@@ -12,6 +12,7 @@ import LoadingScreen from "@/components/animations/LoadingScreen";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import BackToTop from "@/components/animations/BackToTop";
 import SectionIndicator from "@/components/animations/SectionIndicator";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 const Index = lazy(() => import("./pages/Index"));
 const About = lazy(() => import("./pages/About"));
@@ -69,6 +70,7 @@ const App = () => (
       <LoadingScreen />
       <ScrollProgress />
       <BackToTop />
+      <WhatsAppButton />
       <SectionIndicator />
       <CustomCursor />
       <Toaster />

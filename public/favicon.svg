@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0D78C"/>
+      <stop offset="0.45" stop-color="#C9A227"/>
+      <stop offset="1" stop-color="#8A6A12"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#gold)"/>
+  <text
+    x="32"
+    y="40"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="28"
+    font-weight="700"
+    fill="#1A1208"
+    letter-spacing="-1"
+  >LS</text>
+</svg>

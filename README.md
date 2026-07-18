@@ -29,3 +29,10 @@ Open [http://localhost:8080](http://localhost:8080).
 - Tailwind CSS
 - shadcn/ui
 - Framer Motion / GSAP
+
+## SEO / Search Console
+
+- Robots: https://luxe-hair-studio.vercel.app/robots.txt
+- Sitemap: https://luxe-hair-studio.vercel.app/sitemap.xml
+
+Google verification meta tag lives in `index.html`. Replace `YOUR_GOOGLE_VERIFICATION_CODE` with the content value from Search Console (HTML tag method), deploy, then verify and submit `sitemap.xml`.

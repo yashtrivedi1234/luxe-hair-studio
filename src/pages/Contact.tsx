@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import AnimatedSection from "@/components/animations/AnimatedSection";
 import StaggerContainer, { staggerItemVariants } from "@/components/animations/StaggerContainer";
 import MagneticButton from "@/components/animations/MagneticButton";
+import { SITE } from "@/lib/site";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -69,7 +70,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Call Us",
-      lines: ["(123) 456-7890", "Mon-Sat: 9AM - 8PM"],
+      lines: [`${SITE.phoneDisplay}`, "Mon-Fri: 9AM - 8PM · Sat-Sun: 10AM - 6PM"],
     },
     {
       icon: Mail,
@@ -301,6 +302,43 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* FAQ — visible content aligned with FAQPage schema */}
+      <section className="section-padding bg-secondary/40" aria-labelledby="contact-faq-heading">
+        <div className="container-custom max-w-3xl">
+          <AnimatedSection className="text-center mb-10">
+            <h2 id="contact-faq-heading" className="font-display text-3xl md:text-4xl font-semibold mb-3">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-muted-foreground">
+              Quick answers about visiting LuxeSalon in Beverly Hills.
+            </p>
+          </AnimatedSection>
+          <div className="space-y-6">
+            {[
+              {
+                q: "Where is LuxeSalon located?",
+                a: `LuxeSalon is at ${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}.`,
+              },
+              {
+                q: "What are LuxeSalon opening hours?",
+                a: "We are open Monday–Friday 9:00 AM–8:00 PM and Saturday–Sunday 10:00 AM–6:00 PM.",
+              },
+              {
+                q: "How do I book an appointment at LuxeSalon?",
+                a: "Book online on our Book page, call us at (123) 456-7890, or message us on WhatsApp.",
+              },
+            ].map((item) => (
+              <AnimatedSection key={item.q}>
+                <div className="border-b border-border pb-6">
+                  <h3 className="font-display text-xl font-semibold mb-2">{item.q}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.a}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Map Section */}
       <AnimatedSection className="h-[400px] relative">
         <iframe
@@ -311,7 +349,7 @@ const Contact = () => {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="LuxeSalon Location"
+          title="Map showing LuxeSalon location in Beverly Hills, CA 90210"
           className="grayscale"
         />
         <motion.div 

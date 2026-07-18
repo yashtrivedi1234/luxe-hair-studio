@@ -117,7 +117,9 @@ const Gallery = () => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                     src={image.src}
-                    alt={image.title}
+                    alt={`${image.title} — ${image.category} hair styling at LuxeSalon Beverly Hills`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                   <motion.div

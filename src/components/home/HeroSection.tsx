@@ -60,7 +60,11 @@ const HeroSection = () => {
       <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }}>
         <img
           src={heroImage}
-          alt="Luxe Salon Interior"
+          alt="Luxury interior of LuxeSalon hair salon in Beverly Hills"
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-[120%] object-cover"
         />
         <motion.div

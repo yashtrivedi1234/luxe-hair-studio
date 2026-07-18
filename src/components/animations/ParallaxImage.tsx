@@ -6,9 +6,16 @@ interface ParallaxImageProps {
   alt: string;
   className?: string;
   speed?: number;
+  loading?: "lazy" | "eager";
 }
 
-const ParallaxImage = ({ src, alt, className = "", speed = 0.5 }: ParallaxImageProps) => {
+const ParallaxImage = ({
+  src,
+  alt,
+  className = "",
+  speed = 0.5,
+  loading = "lazy",
+}: ParallaxImageProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -23,6 +30,8 @@ const ParallaxImage = ({ src, alt, className = "", speed = 0.5 }: ParallaxImageP
       <motion.img
         src={src}
         alt={alt}
+        loading={loading}
+        decoding="async"
         style={{ y, scale }}
         className="w-full h-full object-cover"
       />

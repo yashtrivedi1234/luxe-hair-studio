@@ -19,6 +19,8 @@ import Gallery from "./pages/Gallery";
 import Reviews from "./pages/Reviews";
 import Offers from "./pages/Offers";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,8 @@ const AnimatedRoutes = () => {
         <Route path="/reviews" element={<PageTransition><Reviews /></PageTransition>} />
         <Route path="/offers" element={<PageTransition><Offers /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+        <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>

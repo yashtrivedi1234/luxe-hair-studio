@@ -77,7 +77,7 @@ const Book = () => {
   if (isSubmitted) {
     return (
       <Layout>
-        <section className="pt-32 pb-16 min-h-screen bg-gradient-hero">
+        <section className="pt-8 pb-16 min-h-screen bg-gradient-hero">
           <div className="container-custom">
             <div className="max-w-2xl mx-auto text-center">
               <motion.div 
@@ -149,7 +149,7 @@ const Book = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
+      <section className="pt-8 pb-16 bg-gradient-hero">
         <div className="container-custom">
           <AnimatedSection className="text-center max-w-3xl mx-auto mb-12">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">

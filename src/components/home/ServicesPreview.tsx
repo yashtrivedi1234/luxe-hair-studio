@@ -69,12 +69,12 @@ const ServicesPreview = () => {
             Our Services
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-semibold mt-4 mb-6">
-            Tailored Beauty
-            <span className="text-gradient-gold italic"> Experiences</span>
+            Hair Services in
+            <span className="text-gradient-gold italic"> Beverly Hills</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            From classic cuts to bold transformations, our expert stylists deliver
-            personalized services that exceed expectations.
+            From classic cuts to bold balayage and bridal styling, our expert stylists deliver
+            personalized luxury hair services that exceed expectations.
           </p>
         </AnimatedSection>
 

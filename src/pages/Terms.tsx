@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 const Terms = () => {
   return (
     <Layout>
-      <article className="pt-32 pb-20">
+      <article className="pt-8 pb-20">
         <div className="container-custom max-w-3xl">
           <h1 className="font-display text-4xl md:text-5xl font-semibold mb-4">Terms of Service</h1>
           <p className="text-muted-foreground mb-10">Last updated: July 18, 2026</p>

@@ -44,7 +44,7 @@ const Gallery = () => {
       <motion.section
         ref={heroRef}
         style={{ y: heroY, opacity: heroOpacity }}
-        className="pt-32 pb-16 bg-gradient-hero"
+        className="pt-8 pb-16 bg-gradient-hero"
       >
         <div className="container-custom">
           <AnimatedSection className="text-center max-w-3xl mx-auto">

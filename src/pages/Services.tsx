@@ -112,7 +112,7 @@ const Services = () => {
       <motion.section
         ref={heroRef}
         style={{ y: heroY, opacity: heroOpacity }}
-        className="pt-32 pb-16 bg-gradient-hero"
+        className="pt-8 pb-16 bg-gradient-hero"
       >
         <div className="container-custom">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
@@ -120,12 +120,12 @@ const Services = () => {
               Our Services
             </span>
             <h1 className="font-display text-5xl md:text-6xl font-semibold mt-4 mb-6">
-              Premium Hair
+              Beverly Hills Hair
               <span className="text-gradient-gold italic"> Services</span>
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              From precision cuts to transformative color, our expert stylists offer a complete
-              range of luxury hair services tailored to your unique style.
+              From precision cuts and balayage to keratin treatments and bridal styling, our expert
+              stylists offer luxury hair services tailored to your style — right here in Beverly Hills.
             </p>
             <MagneticButton>
               <Button variant="hero" size="xl" asChild>

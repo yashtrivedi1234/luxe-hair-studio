@@ -3,12 +3,14 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import SEOHead from "@/components/seo/SEOHead";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
 
 interface LayoutProps {
   children: ReactNode;
+  showBreadcrumbs?: boolean;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, showBreadcrumbs = true }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col relative">
       <a
@@ -20,6 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
       <SEOHead />
       <Navbar />
       <main id="main-content" className="flex-1">
+        {showBreadcrumbs && <Breadcrumbs />}
         {children}
       </main>
       <Footer />

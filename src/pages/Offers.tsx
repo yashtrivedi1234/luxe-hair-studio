@@ -87,7 +87,7 @@ const Offers = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
+      <section className="pt-8 pb-16 bg-gradient-hero">
         <div className="container-custom">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
             <span className="text-primary text-sm font-medium tracking-widest uppercase">

@@ -130,7 +130,7 @@ const HeroSection = () => {
             className="text-cream/80 text-lg md:text-xl leading-relaxed mb-8"
           >
             Experience premium hair styling at Beverly Hills' most exclusive salon.
-            Transform your look with our award-winning stylists.
+            Transform your look with our award-winning stylists — haircuts, balayage, color & bridal styling.
           </motion.p>
 
           {/* CTAs */}

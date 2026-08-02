@@ -1,24 +1,14 @@
 {
-  "name": "LuxeSalon",
+  "name": "LuxeSalon Lucknow",
   "short_name": "LuxeSalon",
-  "description": "Premium hair salon in Beverly Hills — cuts, color, treatments & bridal styling.",
+  "description": "Premium hair salon in Gomti Nagar, Lucknow — cuts, colour, keratin & bridal.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF8F5",
   "theme_color": "#C9A227",
-  "lang": "en",
+  "lang": "en-IN",
   "icons": [
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
 }

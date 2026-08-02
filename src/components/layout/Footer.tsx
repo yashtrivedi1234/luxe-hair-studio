@@ -1,152 +1,129 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Scissors, MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
 import { SITE } from "@/lib/site";
 
-const quickLinks = [
-  { name: "About Us", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Reviews", path: "/reviews" },
-  { name: "Offers", path: "/offers" },
-  { name: "Book Appointment", path: "/book" },
-  { name: "Contact", path: "/contact" },
+const quick = [
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Gallery", href: "/gallery" },
+  { name: "Offers", href: "/offers" },
+  { name: "Blog", href: "/blog" },
+  { name: "Book", href: "/book" },
+  { name: "Contact", href: "/contact" },
 ];
 
-const Footer = () => {
+export function Footer() {
   return (
-    <footer className="bg-charcoal text-cream" itemScope itemType="https://schema.org/HairSalon">
-      <meta itemProp="name" content={SITE.legalName} />
-      <div className="container-custom section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-gold flex items-center justify-center">
-                <Scissors className="w-5 h-5 text-charcoal" aria-hidden="true" />
-              </div>
-              <span className="font-display text-2xl font-semibold">
-                Luxe<span className="text-gold">Salon</span>
-              </span>
-            </Link>
-            <p className="text-cream/70 text-sm leading-relaxed" itemProp="description">
-              Premium hair styling experience for the modern individual. Where luxury meets artistry
-              in Beverly Hills.
-            </p>
-            <div className="flex gap-4">
-              <a
-                href={SITE.sameAs[0]}
-                target="_blank"
-                rel="noopener noreferrer me"
-                className="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-gold transition-colors"
-                aria-label="Follow LuxeSalon on Instagram"
-              >
-                <Instagram className="w-5 h-5" aria-hidden="true" />
-              </a>
-              <a
-                href={SITE.sameAs[1]}
-                target="_blank"
-                rel="noopener noreferrer me"
-                className="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-gold transition-colors"
-                aria-label="Follow LuxeSalon on Facebook"
-              >
-                <Facebook className="w-5 h-5" aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h2 className="font-display text-lg font-semibold mb-6">Quick Links</h2>
-            <ul className="space-y-3">
-              {quickLinks.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    className="text-cream/70 hover:text-gold transition-colors text-sm"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-            <h2 className="font-display text-lg font-semibold mb-6">Contact Us</h2>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
-                <span className="text-cream/70 text-sm">
-                  <span itemProp="streetAddress">{SITE.address.street}</span>
-                  <br />
-                  <span itemProp="addressLocality">{SITE.address.city}</span>,{" "}
-                  <span itemProp="addressRegion">{SITE.address.region}</span>{" "}
-                  <span itemProp="postalCode">{SITE.address.postalCode}</span>
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
-                <a
-                  href={`tel:${SITE.phone}`}
-                  className="text-cream/70 hover:text-gold transition-colors text-sm"
-                  itemProp="telephone"
-                >
-                  {SITE.phoneDisplay}
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="text-cream/70 hover:text-gold transition-colors text-sm"
-                  itemProp="email"
-                >
-                  {SITE.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Hours */}
-          <div>
-            <h2 className="font-display text-lg font-semibold mb-6">Opening Hours</h2>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
-                <div className="text-sm">
-                  <p className="text-cream">Mon - Fri</p>
-                  <p className="text-cream/70">9:00 AM - 8:00 PM</p>
-                </div>
-              </li>
-              <li className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
-                <div className="text-sm">
-                  <p className="text-cream">Sat - Sun</p>
-                  <p className="text-cream/70">10:00 AM - 6:00 PM</p>
-                </div>
-              </li>
-            </ul>
+    <footer className="relative bg-charcoal text-cream mt-auto overflow-hidden">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      <div className="absolute -top-32 right-0 w-80 h-80 bg-gold/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="container mx-auto px-4 py-16 md:py-20 grid md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
+        <div className="space-y-5">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="w-11 h-11 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center shadow-gold">
+              <Scissors className="w-5 h-5 text-charcoal" />
+            </span>
+            <span className="font-display text-2xl font-semibold">
+              Luxe<span className="text-gold">Salon</span>
+            </span>
+          </Link>
+          <p className="text-cream/65 text-sm leading-relaxed max-w-xs">
+            Premium hair, colour, treatments & bridal styling in Gomti Nagar, Lucknow.
+          </p>
+          <div className="flex gap-3">
+            <a
+              href={SITE.sameAs[0]}
+              className="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-gold hover:text-charcoal transition-colors"
+              aria-label="Instagram"
+              rel="me noopener noreferrer"
+              target="_blank"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a
+              href={SITE.sameAs[1]}
+              className="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-gold hover:text-charcoal transition-colors"
+              aria-label="Facebook"
+              rel="me noopener noreferrer"
+              target="_blank"
+            >
+              <Facebook className="w-5 h-5" />
+            </a>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-cream/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-cream/50 text-sm">
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            <Link to="/privacy" className="text-cream/50 hover:text-gold transition-colors text-sm">
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className="text-cream/50 hover:text-gold transition-colors text-sm">
-              Terms of Service
-            </Link>
-          </div>
+        <div>
+          <h2 className="font-display text-lg font-semibold mb-5">Explore</h2>
+          <ul className="space-y-2.5">
+            {quick.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-cream/65 text-sm hover:text-gold transition-colors">
+                  {l.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="font-display text-lg font-semibold mb-5">Visit</h2>
+          <ul className="space-y-4 text-sm text-cream/65">
+            <li className="flex gap-3">
+              <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+              <span>
+                {SITE.address.street}
+                <br />
+                {SITE.address.area}, {SITE.address.city} {SITE.address.postalCode}
+              </span>
+            </li>
+            <li className="flex gap-3 items-center">
+              <Phone className="w-4 h-4 text-gold" />
+              <a href={`tel:${SITE.phone}`} className="hover:text-gold transition-colors">
+                {SITE.phoneDisplay}
+              </a>
+            </li>
+            <li className="flex gap-3 items-center">
+              <Mail className="w-4 h-4 text-gold" />
+              <a href={`mailto:${SITE.email}`} className="hover:text-gold transition-colors">
+                {SITE.email}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="font-display text-lg font-semibold mb-5">Hours</h2>
+          <ul className="space-y-4 text-sm">
+            <li className="flex gap-3">
+              <Clock className="w-4 h-4 text-gold shrink-0" />
+              <div>
+                <p className="text-cream">Mon – Sat</p>
+                <p className="text-cream/65">10:00 AM – 8:00 PM</p>
+              </div>
+            </li>
+            <li className="flex gap-3">
+              <Clock className="w-4 h-4 text-gold shrink-0" />
+              <div>
+                <p className="text-cream">Sunday</p>
+                <p className="text-cream/65">11:00 AM – 6:00 PM</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-cream/10 py-6 text-center text-cream/45 text-sm flex flex-col md:flex-row gap-3 justify-center items-center relative z-10">
+        <p>
+          © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
+        </p>
+        <div className="flex gap-5">
+          <Link href="/privacy" className="hover:text-gold transition-colors">
+            Privacy
+          </Link>
+          <Link href="/terms" className="hover:text-gold transition-colors">
+            Terms
+          </Link>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String
+  category    String
+  priceInr    Int
+  durationMin Int
+  featured    Boolean   @default(false)
+  active      Boolean   @default(true)
+  imageUrl    String?
+  seoTitle    String?
+  seoDesc     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  bookings    Booking[]
+}
+
+model Stylist {
+  id        String         @id @default(cuid())
+  name      String
+  title     String
+  bio       String?
+  imageUrl  String?
+  active    Boolean        @default(true)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  bookings  Booking[]
+  slots     Availability[]
+}
+
+model Availability {
+  id        String   @id @default(cuid())
+  stylistId String
+  stylist   Stylist  @relation(fields: [stylistId], references: [id], onDelete: Cascade)
+  dayOfWeek Int
+  startTime String
+  endTime   String
+}
+
+model Booking {
+  id              String   @id @default(cuid())
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id])
+  stylistId       String?
+  stylist         Stylist? @relation(fields: [stylistId], references: [id])
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  date            String
+  time            String
+  notes           String?
+  status          String   @default("PENDING")
+  advanceAmount   Int      @default(0)
+  paymentStatus   String   @default("UNPAID")
+  razorpayOrderId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  payments        Payment[]
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  bookingId         String
+  booking           Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  amountInr         Int
+  currency          String   @default("INR")
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+  status            String   @default("CREATED")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  source    String   @default("CONTACT")
+  interest  String?
+  message   String?
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  name      String
+  rating    Int
+  text      String
+  service   String?
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Offer {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  code        String?
+  discountPct Int?
+  active      Boolean  @default(true)
+  startsAt    DateTime?
+  endsAt      DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryItem {
+  id        String   @id @default(cuid())
+  title     String
+  category  String
+  imageUrl  String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  coverUrl    String?
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

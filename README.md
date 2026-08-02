@@ -1,38 +1,55 @@
-# LuxeSalon
+# LuxeSalon — Next.js full-stack salon platform (Lucknow)
 
-Premium hair salon website for LuxeSalon Beverly Hills — built with Vite, React, TypeScript, and Tailwind CSS.
+Premium hair & beauty salon website for **LuxeSalon Lucknow (Gomti Nagar)** with booking, leads CRM, Razorpay advance, admin dashboard, SEO + AI GEO.
 
-**Live:** [https://luxe-hair-studio.vercel.app](https://luxe-hair-studio.vercel.app)
+## Stack
 
-## Getting started
+- Next.js 15 (App Router) + TypeScript + Tailwind
+- Prisma + SQLite (local) / Postgres (Neon) for production
+- NextAuth credentials admin
+- Razorpay advance payments (demo mode without keys)
 
-```sh
+## Quick start
+
+```bash
+cp .env.example .env
 npm install
+npm run db:setup
 npm run dev
 ```
 
-Open [http://localhost:8080](http://localhost:8080).
+Open http://localhost:3000
+
+Admin: http://localhost:3000/admin/login  
+Default: `admin@luxesalon.in` / `Admin@12345` (change in `.env`)
 
 ## Scripts
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview the production build |
-| `npm run lint` | Run ESLint |
+| `npm run dev` | Dev server |
+| `npm run build` | Production build |
+| `npm run db:setup` | Push schema + seed |
+| `npm run db:seed` | Re-seed data |
 
-## Stack
+## SEO / GEO
 
-- Vite
-- React + TypeScript
-- Tailwind CSS
-- shadcn/ui
-- Framer Motion / GSAP
+- Dynamic `sitemap.xml` & `robots.txt`
+- JSON-LD HairSalon + Service + FAQ
+- `public/llms.txt` & `public/ai.txt` for AI citation
+- Local Lucknow landing pages under `/services/[slug]`
 
-## SEO / Search Console
+## Deploy (Vercel)
 
-- Robots: https://luxe-hair-studio.vercel.app/robots.txt
-- Sitemap: https://luxe-hair-studio.vercel.app/sitemap.xml
+1. Set env vars from `.env.example` (use Neon `DATABASE_URL` for production)
+2. Build command: `prisma generate && prisma db push && tsx prisma/seed.ts && next build` (or run seed once manually)
+3. Add Razorpay + Resend keys for live payments/email
+4. Update `NEXT_PUBLIC_SITE_URL` and NAP in `src/lib/site.ts`
+5. Submit sitemap in Google Search Console
 
-Google verification meta tag lives in `index.html`. Replace `YOUR_GOOGLE_VERIFICATION_CODE` with the content value from Search Console (HTML tag method), deploy, then verify and submit `sitemap.xml`.
+## Lead features
+
+- Contact / offer / service enquiry → Leads inbox
+- Booking → Bookings + Lead pipeline
+- Sticky WhatsApp + mobile Call/Book bar
+- Review moderation in admin

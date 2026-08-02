@@ -27,7 +27,7 @@ export default async function BookPage() {
             <h1 className="font-display text-4xl md:text-5xl font-semibold mb-3">Book Your Visit</h1>
             <div className="gold-line mb-4" />
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Choose a service, artist & slot. Optional Razorpay advance for priority confirmation.
+              Choose a service, artist & slot. We’ll confirm by WhatsApp and email.
             </p>
           </Reveal>
         </div>

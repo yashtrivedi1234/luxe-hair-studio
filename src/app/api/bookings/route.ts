@@ -12,7 +12,6 @@ const schema = z.object({
   date: z.string().min(8),
   time: z.string().min(4),
   notes: z.string().max(1000).optional(),
-  payAdvance: z.boolean().optional(),
 });
 
 export async function GET(req: Request) {
@@ -65,7 +64,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
-    const advance = data.payAdvance ? Math.min(500, Math.round(service.priceInr * 0.2)) : 0;
+    const stylist = data.stylistId
+      ? await prisma.stylist.findUnique({ where: { id: data.stylistId } })
+      : null;
 
     const booking = await prisma.booking.create({
       data: {
@@ -78,22 +79,23 @@ export async function POST(req: Request) {
         time: data.time,
         notes: data.notes || null,
         status: "PENDING",
-        advanceAmount: advance,
-        paymentStatus: advance > 0 ? "PENDING" : "UNPAID",
+        advanceAmount: 0,
+        paymentStatus: "NONE",
       },
-      include: { service: true },
+      include: { service: true, stylist: true },
     });
 
     await notifyBooking({
       id: booking.id,
       customerName: booking.customerName,
       customerPhone: booking.customerPhone,
+      customerEmail: booking.customerEmail,
       date: booking.date,
       time: booking.time,
       serviceName: booking.service.name,
+      stylistName: booking.stylist?.name || stylist?.name || null,
     });
 
-    // Also create a lead for CRM pipeline
     await prisma.lead.create({
       data: {
         name: data.customerName,
@@ -109,8 +111,6 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: true,
       bookingId: booking.id,
-      advanceAmount: advance,
-      needsPayment: advance > 0,
     });
   } catch (e) {
     if (e instanceof z.ZodError) {

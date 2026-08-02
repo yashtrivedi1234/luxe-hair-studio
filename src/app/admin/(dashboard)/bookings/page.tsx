@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { formatInr } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
 async function updateBookingStatus(formData: FormData) {
@@ -28,7 +27,6 @@ export default async function AdminBookingsPage() {
               <th className="p-3">Customer</th>
               <th className="p-3">Service</th>
               <th className="p-3">When</th>
-              <th className="p-3">Pay</th>
               <th className="p-3">Status</th>
               <th className="p-3">Update</th>
             </tr>
@@ -45,12 +43,6 @@ export default async function AdminBookingsPage() {
                   <div className="text-xs text-muted-foreground">{b.stylist?.name || "Any stylist"}</div>
                 </td>
                 <td className="p-3">{b.date} {b.time}</td>
-                <td className="p-3">
-                  {b.paymentStatus}
-                  {b.advanceAmount > 0 && (
-                    <div className="text-xs">{formatInr(b.advanceAmount)}</div>
-                  )}
-                </td>
                 <td className="p-3">{b.status}</td>
                 <td className="p-3">
                   <form action={updateBookingStatus} className="flex gap-2">

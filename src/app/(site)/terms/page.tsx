@@ -17,8 +17,7 @@ export default function TermsPage() {
         <p>Last updated: August 2026</p>
         <p>
           Booking requests are confirmed by our team. Please give 24 hours’ notice to cancel or
-          reschedule. Advance payments via Razorpay are non-refundable for same-day no-shows unless
-          we cancel. Contact {SITE.email} for questions.
+          reschedule. Please give 24 hours’ notice for cancellations. Contact {SITE.email} for questions.
         </p>
       </article>
     </>
